@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, ForeignKey, String, Integer
 from sqlalchemy.orm import DeclarativeBase
 
 
@@ -14,8 +14,8 @@ class ModelDevice(BaseModel):
     __tablename__ = "device"
 
     id = Column(Integer, primary_key=True)
-    name: Column(String, nullable=False)
-    country: Column(String, nullable=False)
+    name = Column(String, nullable=False)
+    country = Column(String, nullable=False)
 
 
 class ModelArticle(BaseModel):
@@ -36,6 +36,7 @@ class ModelApplication(BaseModel):
 
     __tablename__ = "application"
 
-    device_id = Column(Integer, nullable=False)
-    article_id = Column(Integer, nullable=False)
+    record_id = Column(Integer, primary_key=True)
+    device_id = Column(Integer, ForeignKey("device.id"), nullable=False)
+    article_id = Column(Integer, ForeignKey("article.id"), nullable=False)
     seq_obj = Column(String, nullable=False)
