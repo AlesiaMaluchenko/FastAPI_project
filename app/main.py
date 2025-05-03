@@ -53,17 +53,18 @@ async def article_get_handler(params: Annotated[schemas.SchemaIdentifier, Depend
     """
     stmt = select(models.ModelArticle).where(models.ModelArticle.id == params.id)
     objs = await session.execute(stmt)
-    return objs.scalars()
+    return objs.scalar()
 
 
-@App.post("/article_change", tags=["article"], dependencies=SecurityDependency)
+@App.put("/article_change", tags=["article"], dependencies=SecurityDependency)
 async def article_change_handler(params: Annotated[schemas.SchemaArticle, Depends()], session: SessionDependency):
     """
         Изменение существующей статьи
     """
-    stmt = update(models.ModelArticle).values(id=params.id, title=params.title).where(models.ModelArticle == params.id)
-    objs = await session.execute(stmt)
-    return objs.rowcount
+    obj = await session.get(models.ModelArticle, params.id)
+    if obj:
+        obj.title = params.title
+        await session.commit()
 
 
 @App.put("/article_add", tags=["article"], dependencies=SecurityDependency)
