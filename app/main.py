@@ -66,13 +66,19 @@ async def article_change_handler(params: Annotated[schemas.SchemaArticle, Depend
     return objs.rowcount
 
 
-@App.post("/article_add", tags=["article"], dependencies=SecurityDependency)
+@App.put("/article_add", tags=["article"], dependencies=SecurityDependency)
 async def article_add_handler(params: Annotated[schemas.SchemaArticle, Depends()], session: SessionDependency):
     """
         Добавление новой статьи
     """
-    stmt = insert(models.ModelArticle)
-    await session.execute(stmt, [{"id": params.id, "title": params.title}])
+    await session.execute(
+        insert(models.ModelArticle),
+        {
+            "id": params.id,
+            "title": params.title
+        }
+    )
+    await session.commit()
 
 
 @App.delete("/article_delete", tags=["article"], dependencies=SecurityDependency)
