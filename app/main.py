@@ -59,7 +59,7 @@ async def article_get_handler(params: Annotated[schemas.SchemaIdentifier, Depend
 @App.put("/article_change", tags=["article"], dependencies=SecurityDependency)
 async def article_change_handler(params: Annotated[schemas.SchemaArticle, Depends()], session: SessionDependency):
     """
-        Изменение существующей статьи
+        Изменение данных о существующей статье
     """
     obj = await session.get(models.ModelArticle, params.id)
     if obj:
@@ -88,5 +88,54 @@ async def article_delete_handler(params: Annotated[schemas.SchemaIdentifier, Dep
         Удаление статьи
     """
     stmt = delete(models.ModelArticle).where(models.ModelArticle.id == params.id)
+    objs = await session.execute(stmt)
+    return objs.rowcount
+
+
+
+@App.get("/device", tags=["device"])
+async def device_get_handler(params: Annotated[schemas.SchemaIdentifier, Depends()], session: SessionDependency):
+    """
+        Получение данных о секвенаторе по его идентификатору
+    """
+    stmt = select(models.ModelDevice).where(models.ModelDevice.id == params.id)
+    objs = await session.execute(stmt)
+    return objs.scalar()
+
+
+@App.put("/device_change", tags=["device"], dependencies=SecurityDependency)
+async def device_change_handler(params: Annotated[schemas.SchemaDevice, Depends()], session: SessionDependency):
+    """
+        Изменение данных о существующем секвенаторе
+    """
+    obj = await session.get(models.ModelDevice, params.id)
+    if obj:
+        obj.name = params.name
+        obj.country = params.country
+        await session.commit()
+
+
+@App.put("/device_add", tags=["device"], dependencies=SecurityDependency)
+async def device_add_handler(params: Annotated[schemas.SchemaDevice, Depends()], session: SessionDependency):
+    """
+        Добавление нового секвенатора
+    """
+    await session.execute(
+        insert(models.ModelDevice),
+        {
+            "id": params.id,
+            "name": params.name
+            "country": params.country
+        }
+    )
+    await session.commit()
+
+
+@App.delete("/device_delete", tags=["device"], dependencies=SecurityDependency)
+async def device_delete_handler(params: Annotated[schemas.SchemaIdentifier, Depends()], session: SessionDependency):
+    """
+        Удаление секвенатора
+    """
+    stmt = delete(models.ModelDevice).where(models.ModelDevice.id == params.id)
     objs = await session.execute(stmt)
     return objs.rowcount
