@@ -139,3 +139,54 @@ async def device_delete_handler(params: Annotated[schemas.SchemaIdentifier, Depe
     stmt = delete(models.ModelDevice).where(models.ModelDevice.id == params.id)
     objs = await session.execute(stmt)
     return objs.rowcount
+
+
+
+@App.get("/application", tags=["application"])
+async def application_get_handler(params: Annotated[schemas.SchemaIdentifier, Depends()], session: SessionDependency):
+    """
+        Получение данных о применении секвенатора по идентификатору записи
+    """
+    stmt = select(models.ModelApplication).where(models.ModelApplication.record_id == params.record_id)
+    objs = await session.execute(stmt)
+    return objs.scalar()
+
+
+@App.put("/application_change", tags=["application"], dependencies=SecurityDependency)
+async def application_change_handler(params: Annotated[schemas.SchemaApplication, Depends()], session: SessionDependency):
+    """
+        Изменение данных о существующем применении секвенатора
+    """
+    obj = await session.get(models.ModelApplication, params.record_id)
+    if obj:
+        obj.device_id = params.device_id
+        obj.article_id = params.article_id
+        obj.seq_obj = params.seq_obj
+        await session.commit()
+
+
+@App.put("/application_add", tags=["application"], dependencies=SecurityDependency)
+async def application_add_handler(params: Annotated[schemas.SchemaApplication, Depends()], session: SessionDependency):
+    """
+        Добавление новой записи о применении секвенатора
+    """
+    await session.execute(
+        insert(models.ModelApplication),
+        {
+            "record_id": params.record_id,
+            "device_id": params.device_id
+            "article_id": params.article_id
+            "seq_obj": params.seq_obj
+        }
+    )
+    await session.commit()
+
+
+@App.delete("/application_delete", tags=["application"], dependencies=SecurityDependency)
+async def application_delete_handler(params: Annotated[schemas.SchemaIdentifier, Depends()], session: SessionDependency):
+    """
+        Удаление записи о применении секвенатора
+    """
+    stmt = delete(models.ModelApplication).where(models.ModelApplication.record_id == params.record_id)
+    objs = await session.execute(stmt)
+    return objs.rowcount
