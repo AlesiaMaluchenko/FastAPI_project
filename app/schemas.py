@@ -7,3 +7,8 @@ class SchemaIdentifier(pydantic.BaseModel):
 class SchemaArticle(pydantic.BaseModel):
     id: int
     title: str
+
+class SchemaDevice(pydantic.BaseModel):
+    id: int
+    name: str
+    country: str
