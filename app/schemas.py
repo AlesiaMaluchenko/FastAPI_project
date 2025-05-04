@@ -12,3 +12,9 @@ class SchemaDevice(pydantic.BaseModel):
     id: int
     name: str
     country: str
+
+class SchemaApplication(pydantic.BaseModel):
+    record_id: int
+    device_id: str
+    article_id: str
+    seq_obj: str
