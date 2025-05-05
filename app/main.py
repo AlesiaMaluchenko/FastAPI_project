@@ -124,7 +124,7 @@ async def device_add_handler(params: Annotated[schemas.SchemaDevice, Depends()],
         insert(models.ModelDevice),
         {
             "id": params.id,
-            "name": params.name
+            "name": params.name,
             "country": params.country
         }
     )
@@ -174,8 +174,8 @@ async def application_add_handler(params: Annotated[schemas.SchemaApplication, D
         insert(models.ModelApplication),
         {
             "record_id": params.record_id,
-            "device_id": params.device_id
-            "article_id": params.article_id
+            "device_id": params.device_id,
+            "article_id": params.article_id,
             "seq_obj": params.seq_obj
         }
     )
