@@ -9,8 +9,8 @@ def test_welcome():
     resp = client.get("/")
     assert resp.status_code == 200
 
-    message = "Collect & retrieve data about sequencers and their application"
-    assert resp.json() == {"ServiceInfo": message}
+    message = "Welcome!"
+    assert resp.json() == message
 
 def test_device_add():
 
