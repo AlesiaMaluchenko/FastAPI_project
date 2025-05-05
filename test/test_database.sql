@@ -17,3 +17,41 @@ CREATE TABLE IF NOT EXISTS application (
     FOREIGN KEY (article_id) REFERENCES article (id),
     seq_obj TEXT NOT NULL
 );
+
+
+INSERT INTO device (id, name, country) VALUES
+(
+    0,
+    "NextSeq 550",
+    "USA"
+),
+(
+    1,
+    "SURFSeq 5000",
+    "China"
+);
+
+INSERT INTO article (id, title) VALUES
+(
+    0,
+    "Inferring pattern-driving intercellular flows from single-cell and spatial transcriptomics",
+),
+(
+    1,
+    "A human neural crest model reveals the developmental impact of neuroblastoma-associated chromosomal aberrations",
+);
+
+
+INSERT INTO application (record_id, device_id, article_id, seq_obj) VALUES
+(
+    0,
+    1,
+    0,
+    "tumor, RNA",
+),
+(
+    1,
+    1,
+    1,
+    "PBMC, DNA",
+);
