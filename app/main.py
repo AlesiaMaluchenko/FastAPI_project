@@ -53,6 +53,9 @@ async def signin_handler(form_data: Annotated[OAuth2PasswordRequestForm, Depends
     if form_data.username == AuthLogin and form_data.password == AuthPass:
         response.set_cookie(authx_config.JWT_ACCESS_COOKIE_NAME, security.create_access_token(uid=AuthLogin))
 
+@App.get("/")
+async def welcome_page():
+    return "Welcome!"
 
 @App.get("/article", tags=["article"])
 async def article_get_handler(params: Annotated[schemas.SchemaIdentifier, Depends()], session: SessionDependency):
