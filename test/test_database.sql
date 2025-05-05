@@ -32,11 +32,11 @@ INSERT INTO device (id, name, country) VALUES
 INSERT INTO article (id, title) VALUES
 (
     0,
-    "Inferring pattern-driving intercellular flows from single-cell and spatial transcriptomics",
+    "Inferring pattern-driving intercellular flows from single-cell and spatial transcriptomics"
 ),
 (
     1,
-    "A human neural crest model reveals the developmental impact of neuroblastoma-associated chromosomal aberrations",
+    "A human neural crest model reveals the developmental impact of neuroblastoma-associated chromosomal aberrations"
 );
 
 
@@ -45,11 +45,11 @@ INSERT INTO application (record_id, device_id, article_id, seq_obj) VALUES
     0,
     1,
     0,
-    "tumor, RNA",
+    "tumor, RNA"
 ),
 (
     1,
     1,
     1,
-    "PBMC, DNA",
+    "PBMC, DNA"
 );
