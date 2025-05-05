@@ -19,3 +19,6 @@ class SchemaApplication(pydantic.BaseModel):
     device_id: str
     article_id: str
     seq_obj: str
+
+class SchemaObj(pydantic.BaseModel):
+    obj: str
