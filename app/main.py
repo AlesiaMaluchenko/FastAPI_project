@@ -158,7 +158,7 @@ async def application_get_handler(params: Annotated[schemas.SchemaIdentifier, De
     """
         Получение данных о применении секвенатора по идентификатору записи
     """
-    stmt = select(models.ModelApplication).where(models.ModelApplication.record_id == params.record_id)
+    stmt = select(models.ModelApplication).where(models.ModelApplication.record_id == params.id)
     objs = await session.execute(stmt)
     return objs.scalar()
 
