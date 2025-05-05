@@ -1,0 +1,41 @@
+************* Module app.main
+app\main.py:49:0: C0303: Trailing whitespace (trailing-whitespace)
+app\main.py:51:0: C0303: Trailing whitespace (trailing-whitespace)
+app\main.py:56:0: C0301: Line too long (105/100) (line-too-long)
+app\main.py:58:0: C0301: Line too long (109/100) (line-too-long)
+app\main.py:62:0: C0301: Line too long (114/100) (line-too-long)
+app\main.py:72:0: C0301: Line too long (114/100) (line-too-long)
+app\main.py:83:0: C0301: Line too long (111/100) (line-too-long)
+app\main.py:98:0: C0301: Line too long (117/100) (line-too-long)
+app\main.py:109:0: C0301: Line too long (113/100) (line-too-long)
+app\main.py:119:0: C0301: Line too long (112/100) (line-too-long)
+app\main.py:131:0: C0301: Line too long (109/100) (line-too-long)
+app\main.py:147:0: C0301: Line too long (116/100) (line-too-long)
+app\main.py:158:0: C0301: Line too long (118/100) (line-too-long)
+app\main.py:168:0: C0301: Line too long (122/100) (line-too-long)
+app\main.py:181:0: C0301: Line too long (119/100) (line-too-long)
+app\main.py:198:0: C0301: Line too long (121/100) (line-too-long)
+app\main.py:202:0: C0301: Line too long (103/100) (line-too-long)
+app\main.py:208:0: C0301: Line too long (103/100) (line-too-long)
+app\main.py:211:0: C0303: Trailing whitespace (trailing-whitespace)
+app\main.py:223:0: C0301: Line too long (109/100) (line-too-long)
+app\main.py:23:0: C0116: Missing function or method docstring (missing-function-docstring)
+app\main.py:56:0: C0116: Missing function or method docstring (missing-function-docstring)
+app\main.py:208:0: C0116: Missing function or method docstring (missing-function-docstring)
+app\main.py:223:0: C0116: Missing function or method docstring (missing-function-docstring)
+************* Module app.models
+app\models.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+app\models.py:5:0: C0115: Missing class docstring (missing-class-docstring)
+app\models.py:5:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+app\models.py:9:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+app\models.py:21:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+app\models.py:32:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module app.schemas
+app\schemas.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module app.secrets
+app\secrets.py:3:0: C0304: Final newline missing (missing-final-newline)
+app\secrets.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+
+------------------------------------------------------------------
+Your code has been rated at 7.63/10 (previous run: 7.63/10, +0.00)
+
