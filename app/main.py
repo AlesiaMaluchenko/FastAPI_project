@@ -198,3 +198,25 @@ async def application_delete_handler(params: Annotated[schemas.SchemaIdentifier,
     stmt = delete(models.ModelApplication).where(models.ModelApplication.record_id == params.record_id)
     objs = await session.execute(stmt)
     return objs.rowcount
+
+
+@App.get("/devices_for_obj", tags=["stats"])
+async def devices_for_obj(params: Annotated[schemas.SchemaObj, Depends()], session: SessionDependency):
+    stmt = select(models.ModelApplication).where(models.ModelApplication.seq_obj == params.obj)
+    cases = await session.execute(stmt)
+    
+    result = []
+    for case in cases.scalars():
+        stmt = select(models.ModelDevice).where(models.ModelDevice.id == case.device_id)
+        device = await session.execute(stmt)
+        if device:
+            result.append(device)
+
+    return result
+
+
+@App.get("/objs_on_device", tags=["stats"])
+async def objs_on_device(params: Annotated[schemas.SchemaIdentifier, Depends()], session: SessionDependency):
+    stmt = select(models.ModelApplication).where(models.ModelApplication.device_id == params.id)
+    cases = await session.execute(stmt)
+    return list(map(lambda x: x.seq_obj, cases.scalars()))
