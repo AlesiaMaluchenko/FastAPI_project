@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import(
     async_sessionmaker,
     AsyncSession
 )
+from contextlib import asynccontextmanager
 from . import models, schemas
 from sqlalchemy import select, insert, delete, update
 from authx import AuthX, AuthXConfig
@@ -33,11 +34,18 @@ AuthPass = secrets.Pass
 SecurityDependency = [Depends(security.access_token_required)]
 
 
-@App.on_event("startup")
-async def setup_models():
+@asynccontextmanager
+async def app_lifespan(app: FastAPI):
+    """
+    Startup and shutdown events processors
+    """
     async with Engine.begin() as con:
         await con.run_sync(models.BaseModel.metadata.drop_all)
         await con.run_sync(models.BaseModel.metadata.create_all)
+    
+    yield
+    
+    return
 
 
 @App.post("/signin", tags=["signin"])
